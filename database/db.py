@@ -49,14 +49,15 @@ def seed_db():
         "INSERT OR IGNORE INTO users (username, email, password_hash) VALUES (?, ?, ?)",
         ("bob", "bob@example.com", generate_password_hash("password123")),
     )
-    conn.executemany(
-        "INSERT OR IGNORE INTO expenses (user_id, title, amount, category, date, notes) VALUES (?, ?, ?, ?, ?, ?)",
-        [
-            (1, "Groceries",       52.30, "Food",          "2025-05-01", "Weekly shop"),
-            (1, "Bus pass",        30.00, "Transport",     "2025-05-03", "Monthly top-up"),
-            (2, "Electric bill",  110.50, "Utilities",     "2025-05-05", "May invoice"),
-            (2, "Cinema tickets",  24.00, "Entertainment", "2025-05-10", "Weekend outing"),
-        ],
-    )
+    if not conn.execute("SELECT 1 FROM expenses LIMIT 1").fetchone():
+        conn.executemany(
+            "INSERT INTO expenses (user_id, title, amount, category, date, notes) VALUES (?, ?, ?, ?, ?, ?)",
+            [
+                (1, "Groceries",       52.30, "Food",          "2025-05-01", "Weekly shop"),
+                (1, "Bus pass",        30.00, "Transport",     "2025-05-03", "Monthly top-up"),
+                (2, "Electric bill",  110.50, "Utilities",     "2025-05-05", "May invoice"),
+                (2, "Cinema tickets",  24.00, "Entertainment", "2025-05-10", "Weekend outing"),
+            ],
+        )
     conn.commit()
     conn.close()
