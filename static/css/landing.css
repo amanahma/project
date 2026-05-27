@@ -1,0 +1,243 @@
+/* ------------------------------------------------------------------ */
+/* Hero — centered light layout                                        */
+/* ------------------------------------------------------------------ */
+
+.hero-bg {
+    background: #ffffff;
+}
+
+.hero-bg .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    grid-template-columns: unset;
+    gap: 0;
+    max-width: 680px;
+}
+
+/* Badge */
+.hero-bg .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: transparent;
+    border: 1px solid rgba(34, 160, 90, 0.4);
+    color: #2a7a4f;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 5px 14px;
+    border-radius: 100px;
+    margin-bottom: 1.75rem;
+}
+
+.hero-badge-dot {
+    width: 7px;
+    height: 7px;
+    background: #22a05a;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Title */
+.hero-bg .hero-title {
+    font-size: clamp(2.5rem, 6vw, 3.75rem);
+    line-height: 1.15;
+    color: #111110;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+}
+
+.hero-bg .hero-title em {
+    color: #22a05a;
+    font-style: italic;
+    display: block;
+}
+
+/* Subtitle */
+.hero-bg .hero-subtitle {
+    font-size: 1rem;
+    color: #6b6b67;
+    line-height: 1.65;
+    max-width: 480px;
+    margin-bottom: 2rem;
+}
+
+/* Actions */
+.hero-bg .hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+/* "See how it works" dark button */
+.btn-dark {
+    display: inline-block;
+    background: #1a1a18;
+    color: #f7f6f3;
+    padding: 0.65rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-dark:hover {
+    background: #333330;
+}
+
+/* ------------------------------------------------------------------ */
+/* Mock card — wide, light                                             */
+/* ------------------------------------------------------------------ */
+
+.hero-bg .hero-visual {
+    width: 100%;
+    max-width: 580px;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-bg .mock-card {
+    background: #ffffff;
+    border: 1px solid #e4e1da;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+    padding: 20px 24px 28px;
+    width: 100%;
+    max-width: 580px;
+    text-align: left;
+}
+
+/* Window dots */
+.mock-window-dots {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+}
+
+.mock-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.mock-dot-red    { background: #ff5f57; }
+.mock-dot-yellow { background: #febc2e; }
+.mock-dot-green  { background: #28c840; }
+
+/* Stats row */
+.mock-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid #eeebe4;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 22px;
+}
+
+.mock-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 18px;
+    border-right: 1px solid #eeebe4;
+}
+
+.mock-stat:last-child {
+    border-right: none;
+}
+
+.mock-stat-label {
+    font-size: 0.72rem;
+    color: #9a9a96;
+    font-weight: 500;
+}
+
+.mock-stat-value {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #111110;
+    line-height: 1.2;
+}
+
+.mock-stat-change {
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.mock-change-red   { color: #e05252; }
+.mock-change-green { color: #22a05a; }
+.mock-change-gray  { color: #9a9a96; }
+
+/* Bar rows */
+.hero-bg .mock-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.hero-bg .mock-bar-row {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    align-items: center;
+    gap: 12px;
+}
+
+.hero-bg .mock-cat {
+    font-size: 0.8rem;
+    color: #6b6b67;
+    font-weight: 500;
+}
+
+.hero-bg .mock-bar-track {
+    height: 8px;
+    background: #f0f0ec;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.hero-bg .mock-bar {
+    height: 100%;
+    border-radius: 100px;
+}
+
+.mock-bar-food   { background: #e8a030; }
+.mock-bar-travel { background: #4a8fd4; }
+.mock-bar-bills  { background: #9b6bbf; }
+
+/* ------------------------------------------------------------------ */
+/* Responsive overrides                                                */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+    .hero-bg .hero-visual {
+        display: flex;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-bg .hero {
+        padding: 3rem 1rem 2rem;
+    }
+
+    .mock-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .mock-stat {
+        border-right: none;
+        border-bottom: 1px solid #eeebe4;
+    }
+
+    .mock-stat:last-child {
+        border-bottom: none;
+    }
+}
