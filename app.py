@@ -16,13 +16,15 @@ init_db()
 
 @app.route("/")
 def landing():
+    if session.get("user_id"):
+        return redirect(url_for("profile"))
     return render_template("landing.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if session.get("user_id"):
-        return redirect(url_for("landing"))
+        return redirect(url_for("profile"))
     if request.method == "GET":
         return render_template("register.html")
 
@@ -60,7 +62,7 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if session.get("user_id"):
-        return redirect(url_for("landing"))
+        return redirect(url_for("profile"))
     if request.method == "GET":
         return render_template("login.html")
 
@@ -81,7 +83,7 @@ def login():
 
     session["user_id"]  = user["id"]
     session["username"] = user["username"]
-    return redirect(url_for("landing"))
+    return redirect(url_for("profile"))
 
 
 @app.route("/terms")
@@ -106,7 +108,30 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    if not session.get("user_id"):
+        return redirect(url_for("login"))
+
+    db = get_db()
+    user = db.execute(
+        "SELECT id, username, email, created_at FROM users WHERE id = ?",
+        (session["user_id"],)
+    ).fetchone()
+    expenses = db.execute(
+        "SELECT * FROM expenses WHERE user_id = ? ORDER BY date DESC",
+        (session["user_id"],)
+    ).fetchall()
+    db.close()
+
+    total = sum(e["amount"] for e in expenses)
+    by_cat = {}
+    for e in expenses:
+        by_cat[e["category"]] = by_cat.get(e["category"], 0) + e["amount"]
+
+    return render_template("profile.html",
+                           user=user,
+                           expenses=expenses,
+                           total=total,
+                           by_cat=by_cat)
 
 
 @app.route("/expenses/add")
